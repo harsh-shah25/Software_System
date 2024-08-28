@@ -68,10 +68,7 @@ int main(int argc, char *argv[])
        
        // printf("Preferred I/O block size:         %jd bytes\n", (intmax_t) sb.st_blksize);
        // printf("Mode:                             %jo (octal)\n", (uintmax_t) sb.st_mode);
-
-      
-
-
+       
        exit(EXIT_SUCCESS);
 }
 

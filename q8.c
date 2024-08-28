@@ -26,7 +26,7 @@ int main()
     }
     else
     {
-        fprintf(stderr,"failed to open the file");
+        printf("failed to open the file");
     }
 
     printf("\nUsing open() and fd : \n");
