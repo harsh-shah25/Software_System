@@ -15,29 +15,25 @@ the new ticket number then close the file.
 
 struct 
 {
-    int train_num;
     int ticket_num;
-} db[3];
+} db;
 
 int main() 
 {
     int i;
     
-    for (i=0; i<3; i++) 
-    {
-        db[i].train_num = i+1;
-        db[i].ticket_num = 0;
-    }
+    db.ticket_num = 100;
 
-    ssize_t fd = open("ticket.txt", O_CREAT | O_RDWR, 0744);
-    write(fd, db, sizeof(db));
+    ssize_t fd = open("ticketQ17.txt", O_CREAT | O_RDWR, 0744);
+    write(fd, &db, sizeof(db));
     
-    printf("Tickets created\n");
+    printf("Ticket created\n");
     close(fd);
     return 0;
 }
+
 /*
 harsh-shah@harsh-hp-laptop:~/MTech/Software Systems/HandsOn1$ gcc -o q17a q17a.c
 harsh-shah@harsh-hp-laptop:~/MTech/Software Systems/HandsOn1$ ./q17a
-Tickets created
+Ticket created
 */

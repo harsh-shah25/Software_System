@@ -15,34 +15,23 @@ the new ticket number then close the file.
 
 struct 
 {
-    int train_num;
     int ticket_num;
 } db;
 
 int main() 
 {
-    int fd, input;
+    int fd;
 
-    fd = open("ticket.txt", O_RDWR);
-
-    printf("Select train number: 1, 2, 3\n");
-
-    scanf("%d", &input);
-
-    if(input>3 || input<1)
-    {
-        printf("Wrong train number\n");
-        exit(EXIT_FAILURE);
-    }
+    fd = open("ticketQ17.txt", O_RDWR);
 
     struct flock lock;
 
     lock.l_type = F_WRLCK;
     lock.l_whence = SEEK_SET;
-    lock.l_start = (input - 1) * sizeof(db);
+    lock.l_start = 0;
     lock.l_len = sizeof(db);
 
-    lseek(fd, (input - 1) * sizeof(db), SEEK_SET);
+    
     read(fd, &db, sizeof(db));
     printf("Before entering critical section\n");
 
@@ -54,29 +43,23 @@ int main()
     write(fd, &db, sizeof(db));
     printf("\nTo book ticket, press enter\n");
     getchar();
-    getchar();
 
     lock.l_type = F_UNLCK;
-    fcntl(fd, F_SETLK, &lock);
-    printf("Ticket booked for train %d with number %d\n", input, db.ticket_num);
+    fcntl(fd, F_SETLKW, &lock);
+    printf("Ticket booked with number %d\n", db.ticket_num);
 }
 
 /*
-harsh-shah@harsh-hp-laptop:~/MTech/Software Systems/HandsOn1$ gcc -o q17b q17b.c
 harsh-shah@harsh-hp-laptop:~/MTech/Software Systems/HandsOn1$ ./q17b
-Select train number: 1, 2, 3
-2
 Before entering critical section
-Current ticket number: 0
+Current ticket number: 100
 To book ticket, press enter
 
-Ticket booked for train 2 with number 1
+Ticket booked with number 101
 harsh-shah@harsh-hp-laptop:~/MTech/Software Systems/HandsOn1$ ./q17b
-Select train number: 1, 2, 3
-2
 Before entering critical section
-Current ticket number: 1
+Current ticket number: 101
 To book ticket, press enter
 
-Ticket booked for train 2 with number 2
+Ticket booked with number 102
 */
