@@ -26,16 +26,6 @@ int main()
 
     }
 
-    // if(pid==0)
-    // {
-        
-    //     while(!flag)
-    //     {
-    //         printf("Waiting for parent process\n");
-    //         sleep(1);
-            
-    //     }
-    // }
     
 
     return 0;
